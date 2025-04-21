@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gde-kot/models"
 	"log"
+	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -12,23 +13,26 @@ import (
 var DB *gorm.DB
 
 func ConnectDatabase() {
-    fmt.Println("🔌 Подключаемся к БД...")
+	fmt.Println("🔌 Подключаемся к БД...")
 
-    dsn := "host=localhost user=gdekot_user password=Aspirine1 dbname=gdekot port=5432 sslmode=disable"
-    database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	dsn := os.Getenv("POSTGRES_DSN") // ✅ берём из переменной окружения
+	if dsn == "" {
+		log.Fatal("❌ POSTGRES_DSN не задан")
+	}
 
-    if err != nil {
-        log.Fatal("❌ Ошибка подключения к базе:", err)
-    }
+	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Fatal("❌ Ошибка подключения к базе:", err)
+	}
 
-    fmt.Println("✅ БД подключена, выполняем миграцию...")
+	fmt.Println("✅ БД подключена, выполняем миграцию...")
 
-    DB = database
+	DB = database
 
-    err = DB.AutoMigrate(&models.Cat{}, &models.User{})
-    if err != nil {
-        log.Fatal("❌ Ошибка миграции:", err)
-    }
+	err = DB.AutoMigrate(&models.Cat{}, &models.User{})
+	if err != nil {
+		log.Fatal("❌ Ошибка миграции:", err)
+	}
 
-    fmt.Println("✅ Миграция завершена.")
+	fmt.Println("✅ Миграция завершена.")
 }
