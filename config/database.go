@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -13,6 +14,7 @@ import (
 var DB *gorm.DB
 
 func ConnectDatabase() {
+    _ = godotenv.Load() // 👈 это добавь
 	fmt.Println("🔌 Подключаемся к БД...")
 
 	dsn := os.Getenv("POSTGRES_DSN") // ✅ берём из переменной окружения
