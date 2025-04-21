@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Где Кот?</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Карта -->
+    <div id="map"></div>
+
+    <!-- Панель добавления кота -->
+    <div id="add-panel">
+      <h3>Добавить кота</h3>
+      <input type="text" id="cat-desc" placeholder="Описание кота" />
+
+      <select id="cat-status">
+        <option value="hungry">Голодный</option>
+        <option value="fed">Покормили</option>
+        <option value="taken">Забрали</option>
+      </select>
+
+      <input type="file" id="cat-photo" accept="image/*" />
+
+      <!-- Кнопка локации внутри формы -->
+      <button type="button" id="locate-btn" class="secondary-btn">
+        📍 Моя локация
+      </button>
+
+      <button id="submit-cat">Добавить</button>
+    </div>
+
+    <!-- Боковая панель кота -->
+    <div id="cat-overlay" class="hidden">
+      <div id="cat-panel">
+        <button id="close-panel">×</button>
+        <div id="cat-panel-content"></div>
+      </div>
+    </div>
+
+    <!-- Уведомление -->
+    <div id="toast" class="hidden">🐾 Ты герой! Кот добавлен!</div>
+
+    <!-- Скрипты -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="api.js"></script>
+    <script src="ui.js"></script>
+    <script src="map.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js");
+      }
+    </script>
+  </body>
+</html>

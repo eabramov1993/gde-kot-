@@ -1,0 +1,405 @@
+* {
+  box-sizing: border-box;
+}
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
+}
+
+#map {
+  height: 100vh;
+  width: 100%;
+}
+
+#add-panel {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: white;
+  z-index: 1000;
+  padding: 16px;
+  border-radius: 10px;
+  width: 260px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#add-panel h3 {
+  margin: 0;
+  font-size: 16px;
+  text-align: center;
+  color: #333;
+}
+
+#add-panel input,
+#add-panel select {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+#add-panel button {
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#add-panel button:hover {
+  background-color: #008ecc;
+}
+
+.emoji-icon {
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  text-align: center;
+}
+
+.popup-cat button {
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* 📦 Боковая панель с котом */
+
+#cat-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  max-width: 90vw;
+  height: 100%;
+  background: white;
+  z-index: 2000;
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 14px;
+  font-family: sans-serif;
+  border-radius: 0 0 0 10px;
+}
+
+#cat-panel.hidden {
+  display: none;
+}
+
+#cat-panel img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#cat-panel h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #222;
+}
+
+#cat-panel p {
+  margin: 0;
+  color: #444;
+}
+
+#cat-panel button.feed-btn {
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 14px; /* равномерный отступ сверху */
+  display: block; /* 💡 превращаем в блочный элемент */
+  width: 100%; /* занимать всю доступную ширину */
+}
+
+#cat-panel button.feed-btn:hover {
+  background-color: #008ecc;
+}
+
+#close-panel {
+  background: none;
+  border: none;
+  font-size: 22px;
+  font-weight: bold;
+  align-self: flex-end;
+  cursor: pointer;
+  color: #888;
+  padding: 0;
+  margin-bottom: -8px;
+}
+
+#cat-panel h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#cat-panel .cat-info p {
+  margin: 0 0 16px;
+  font-size: 15px;
+  color: #222;
+  line-height: 1.4;
+}
+.cat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#cat-photo {
+  color: transparent; /* скрываем стандартный текст */
+  background-color: #00aaff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+#cat-photo::file-selector-button {
+  color: white;
+  background: transparent;
+  border: none;
+  font-weight: bold;
+  font-family: inherit;
+  cursor: pointer;
+}
+.cat-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cat-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.cat-label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.cat-value {
+  font-size: 16px;
+  color: #222;
+  line-height: 1.4;
+}
+.cat-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#cat-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1999;
+  background: rgba(0, 0, 0, 0.1); /* лёгкая тень */
+}
+
+#cat-overlay.hidden {
+  display: none;
+}
+
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #00aaff;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.secondary-btn {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.secondary-btn:hover {
+  background-color: #e0e0e0;
+}
+.cat-confirm-block {
+  background: #fff;
+  padding: 16px;
+  margin-top: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cat-confirm-block input[type="file"] {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+}
+
+.confirm-btn {
+  background-color: #00cc66;
+}
+
+.confirm-btn:hover {
+  background-color: #00aa55;
+}
+.cat-note {
+  border-left: 4px solid #ffaa00;
+  padding-left: 10px;
+  margin-top: 8px;
+}
+
+.cat-note .cat-value {
+  font-weight: bold;
+  color: #444;
+}
+
+.cat-note.confirmed {
+  border-left-color: #44cc44;
+}
+
+/* ===== 📱 Мобильная оптимизация ===== */
+@media (max-width: 600px) {
+  /* Карта пусть остаётся на полный экран — height:100vh уже есть */
+
+  /* ▶️  Боковая панель кота — из «выезжающей справа» делаем full‑width снизу */
+  #cat-panel {
+    width: 100%;
+    max-width: 100%;
+    right: 0;
+    border-radius: 12px 12px 0 0;
+  }
+
+  /* ▶️  Затемняем остальной экран чуть сильнее, чтобы читалось */
+  #cat-overlay {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  /* ▶️  Блок добавления кота превращаем в bottom‑sheet */
+  #add-panel {
+    top: auto; /* убираем отступ сверху */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Заголовок по центру не нужен, экономим место */
+  #add-panel h3 {
+    text-align: left;
+    font-size: 15px;
+  }
+
+  /* Кнопка «Моя локация» растягиваем на всю ширину (как feed‑btn) */
+  #add-panel button,
+  #add-panel .secondary-btn {
+    width: 100%;
+  }
+
+  /* У Toast‑уведомления меньше отступ снизу */
+  #toast {
+    bottom: 80px;
+  }
+}
+@media (max-width: 350px) {
+  #add-panel {
+    padding: 12px;
+  }
+  #add-panel input,
+  #add-panel select {
+    font-size: 13px;
+  }
+  #cat-panel button.feed-btn {
+    padding: 10px;
+    font-size: 13px;
+  }
+}
+/* Чтобы картинки в карточке не выходили за экран */
+#cat-panel img,
+#add-panel img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Кнопки на 100 % ширины уже сделали, но иконки тоже центрируем */
+button.feed-btn,
+.secondary-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
